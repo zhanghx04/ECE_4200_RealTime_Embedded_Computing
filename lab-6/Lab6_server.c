@@ -37,22 +37,22 @@ char btn[2];
 char buf[MSG_SIZE];	// buffer							 ===
 int cdev_id, dummy, summy; // device id and dummy		 ===
 
-	// =================   Declare Area   ======================
-	//														 ===
-    int server_fd;		// socket							 ===
-    int sa_in_len;	 	// length of struct sockaddr_in		 ===
-    socklen_t fromlen;	// length of sockaddr_in (socklen_t) ===
-    int msg_check;		// check the receive and send		 ===
-    int option = 1;		// socket option					 ===
-    struct ifreq ifr;			//							 ===			
-    struct sockaddr_in server;	//							 ===
-    struct sockaddr_in from;	//							 ===
-    
-    char* ip_addr;		// ip address for this server		 ===
-	
-	pthread_t thread_r;
-    //														 ===
-    // =================   Declare Area   ======================
+// =================   Declare Area   ======================
+//														 ===
+int server_fd;		// socket							 ===
+int sa_in_len;	 	// length of struct sockaddr_in		 ===
+socklen_t fromlen;	// length of sockaddr_in (socklen_t) ===
+int msg_check;		// check the receive and send		 ===
+int option = 1;		// socket option					 ===
+struct ifreq ifr;			//							 ===			
+struct sockaddr_in server;	//							 ===
+struct sockaddr_in from;	//							 ===
+
+char* ip_addr;		// ip address for this server		 ===
+
+pthread_t thread_r;
+//														 ===
+// =================   Declare Area   ======================
     
 
 void error(const char *msg){
@@ -101,10 +101,7 @@ int main(int argc, char *argv[]){
 	
 	srand(time(NULL));
 	
-	
 
-    
-    
 	// Open the Character Device for writing
 	if((cdev_id = open(CHAR_DEV, O_RDWR)) == -1) {
 		printf("Cannot open device %s\n", CHAR_DEV);
@@ -153,10 +150,6 @@ int main(int argc, char *argv[]){
 	// start thread
 	pthread_create(&thread_r, NULL, devRead, NULL);
 
-	
-    
-
-
 
     // receiving and sending
     fromlen = sizeof(struct sockaddr_in);
@@ -164,16 +157,12 @@ int main(int argc, char *argv[]){
     	// erase buffer
     	bzero(buf, MSG_SIZE);
 
-		
-    	
     	// receiving
     	if (recvfrom(server_fd, buf, MSG_SIZE, 0, (struct sockaddr*)&from, &fromlen) < 0){
     		error("recvfrom");
     	}
 
-		
-		
-    	
+
     	//printf("master ip: %s, value: %d\n", master_ip, master_num);
     	
     	// print receive
