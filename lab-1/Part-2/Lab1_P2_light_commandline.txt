@@ -1,0 +1,25 @@
+# turn red light on
+# the BCM of Red light is 2
+
+Method-1:
+$ echo 2 > /sys/class/gpio/export			// select port number
+$ echo out > /sys/class/gpio/gpio2/direction		// set port as output
+$ echo 1 > /sys/class/gpio/gpio2/value		// set port as HIGH (turn on)
+$ echo 0 > /sys/class/gpio/gpio2/value			// set port as LOW (turn off)
+
+
+Method-2:
+in command line:
+using wiringPi numbering:
+gpio mode <pin> in/out		// set wiringPi pin as input or output
+gpio write <pin> 1/0		// set wiringPi pin as 1(HIGH) or 0(LOW)
+
+using BCM_GPIO numbering:
+gpio export <pin> in/out	// set BCM_GPIO pin as input or output
+gpio -g write <pin> 1/0		// set BCM_GPIO pin as 1(HIGH) or 0(LOW)
+
+read the value of button:
+gpio -g read 16			// read the value of pin16(button1)
+
+when using command line without pressing button, the value is 0
+when using command line  with   pressing button, the value is 1
